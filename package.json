@@ -1,0 +1,24 @@
+{
+  "name": "pacing-guide-lti-server",
+  "version": "1.0.0",
+  "description": "LTI Server on Node.js using ltijs to provide server for Pacing Guide LTI Tool.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "env DEBUG=provider:* node app.js"
+  },
+  "keywords": [
+    "Node.js",
+    "LTI",
+    "MongoDB",
+    "ltijs"
+  ],
+  "author": "Eternity Revolution",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "ltijs": "^5.9.0",
+    "path": "^0.12.7"
+  }
+}
