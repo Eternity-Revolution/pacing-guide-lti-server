@@ -4,9 +4,6 @@ require('dotenv').config()
 const path = require('path')
 const routes = require('./routes')
 
-const express = require('express');
-
-
 // Import the LTI provider module
 const lti = require('ltijs').Provider
 
@@ -70,3 +67,5 @@ lti.app.use(routes);
 
 // Call the setup function
 setup()
+
+module.exports = lti.app;
