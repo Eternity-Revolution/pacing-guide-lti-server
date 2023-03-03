@@ -191,6 +191,93 @@ router.delete("/courses/:id", async (req, res) => {
   }
 });
 
+// Create a new student
+router.post("/students", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Students");
+    const student = {
+      studentID: req.body.studentID,
+      username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+    };
+    const result = await collection.insertOne(student);
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get all students
+router.get("/students", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Students");
+    const result = await collection.find({}).toArray();
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get a single student by ID
+router.get("/students/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Students");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.findOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Update a student
+router.put("/students/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Students");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.updateOne(
+      { _id: id },
+      {
+        $set: {
+          studentID: req.body.studentID,
+          username: req.body.username,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+        },
+      }
+    );
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Delete a student
+router.delete("/students/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Students");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.deleteOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Wildcard route to deal with redirecting to React routes
 router.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "./views/index.html"))
