@@ -1,5 +1,6 @@
 // Load environment variables from .env file
 require('dotenv').config()
+var bodyParser = require('body-parser')
 // Load the path module for resolving file paths
 const path = require('path')
 const routes = require('./routes')
@@ -58,6 +59,9 @@ const setup = async () => {
   const authConfig = await platform.platformAuthConfig()
   console.log(authConfig)
 lti.app.use(routes);
+lti.app.use(bodyParser.urlencoded({
+  extended: true
+}));
 // lti.app.use(express.static('views', { extensions: ['html', 'js'] }));
 
 

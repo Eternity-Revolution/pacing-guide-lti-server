@@ -1,1 +1,1 @@
-{"exec": "DEBUG=provider:* node server-local.js"}
+{"exec": "DEBUG=provider:* node app.js"}
