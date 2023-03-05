@@ -363,6 +363,95 @@ router.delete("/quizzes/:id", async (req, res) => {
   }
 });
 
+// Create a new term date record
+router.post("/student-term-dates", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const termDate = {
+      studentID: req.body.studentID,
+      courseID: req.body.courseID,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      completionDate: req.body.completionDate
+    };
+    const result = await collection.insertOne(termDate);
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get all term date records
+router.get("/student-term-dates", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const result = await collection.find({}).toArray();
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get a single term date record by ID
+router.get("/student-term-dates/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.findOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Update a term date record
+router.put("/student-term-dates/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.updateOne(
+      { _id: id },
+      {
+        $set: {
+          studentID: req.body.studentID,
+          courseID: req.body.courseID,
+          startDate: req.body.startDate,
+          endDate: req.body.endDate,
+          completionDate: req.body.completionDate
+        },
+      }
+    );
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Delete a term date record
+router.delete("/student-term-dates/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.deleteOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Wildcard route to deal with redirecting to React routes
 router.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "./views/index.html"))
