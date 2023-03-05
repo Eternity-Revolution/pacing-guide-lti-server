@@ -278,6 +278,91 @@ router.delete("/students/:id", async (req, res) => {
   }
 });
 
+// Create a new quiz
+router.post("/quizzes", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const quiz = {
+      courseId: req.body.courseId,
+      quizzId: req.body.quizzId,
+      timeInDays: req.body.timeInDays,
+    };
+    const result = await collection.insertOne(quiz);
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get all quizzes
+router.get("/quizzes", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const result = await collection.find({}).toArray();
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get a single quiz by ID
+router.get("/quizzes/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.findOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Update a quiz
+router.put("/quizzes/:id", async (req, res) => {
+  try {
+    client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.updateOne(
+      { _id: id },
+      {
+        $set: {
+          courseId: req.body.courseId,
+          quizzId: req.body.quizzId,
+          timeInDays: req.body.timeInDays,
+        },
+      }
+    );
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Delete a quiz
+router.delete("/quizzes/:id", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const ObjectId = require("mongodb").ObjectId;
+    const id = new ObjectId(req.params.id);
+    const result = await collection.deleteOne({ _id: id });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Wildcard route to deal with redirecting to React routes
 router.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "./views/index.html"))
