@@ -1,5 +1,6 @@
 // Load environment variables from .env file
 require('dotenv').config()
+const express = require('express');
 var bodyParser = require('body-parser')
 // Load the path module for resolving file paths
 const path = require('path')
@@ -7,6 +8,18 @@ const routes = require('./routes')
 
 // Import the LTI provider module
 const lti = require('ltijs').Provider
+
+
+const app = express();
+
+// Add CORS middleware
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  next();
+});
+
 
 
 // Setup the LTI provider with the LTI key, MongoDB URL and options

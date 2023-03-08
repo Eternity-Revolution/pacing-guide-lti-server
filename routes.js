@@ -19,17 +19,17 @@ const MongoClient = require("mongodb").MongoClient;
 //   },
 //   auth: {
 //     tokenHost: "https://auth.brightspace.com",
-//     tokenPath: "core/connect/token",
+//     tokenPath: "/core/connect/token",
 //     authorizePath: "/oauth2/auth",
 //   },
 // };
 
-// const client = new oauth2.AuthorizationCode(config);
+// const oauthClient = new oauth2.AuthorizationCode(config);
 
 // router.get("/auth", (req, res) => {
 // //   const redirectUri = req.query.redirect || "/";
 //   //   req.session.redirectUri = redirectUri;
-//   const authorizationUri = client.authorizeURL({
+//   const authorizationUri = oauthClient.authorizeURL({
 //     redirect_uri: "https://localhost:3001/callback",
 //     scope: "quizzing:*:*",
 //     state: state,
@@ -42,11 +42,11 @@ const MongoClient = require("mongodb").MongoClient;
 // //   delete req.session.redirectUri;
 //   const options = {
 //     code: req.query.code,
-//     redirect_uri: "https://localhost:3001/callback",
+//     redirect_uri: "https://8e9a-2001-569-7f32-1e00-9060-7838-4520-3bf9.ngrok.io/callback",
 //   };
 
 //   try {
-//     const result = await client.getToken(options);
+//     const result = await oauthClient.getToken(options);
 //     process.env.accessToken = result.token.access_token; //remove this in production when flutter is connected.
 //     console.log("Access token:", result.token.access_token);
 //         res.redirect('/quizz');
@@ -87,7 +87,7 @@ const MongoClient = require("mongodb").MongoClient;
 //           //   );
 //           //   console.log("Redirect URI: " + redirectUri);
 //           //   res.redirect(`/auth?redirect=${redirectUri}`);
-//           res.redirect('/auth');
+//           res.redirect("/auth");
 //           res.send("Error code: 401. Authorize API.");
 //         }
 
@@ -110,6 +110,23 @@ const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+// Get user and context information
+router.get('/info', async (req, res) => {
+  const token = res.locals.token
+  const context = res.locals.context
+  // console.log(token);
+  const info = { }
+  if (token.userInfo) {
+    if (token.userInfo.name) info.name = token.userInfo.name
+    if (token.userInfo.email) info.email = token.userInfo.email
+  }
+
+  if (context.roles) info.roles = context.roles
+  if (context.context) info.context = context.context
+  console.log(context)
+  return res.send(info)
+})
 
 // Create a new course
 router.post("/courses", async (req, res) => {
@@ -284,8 +301,10 @@ router.post("/quizzes", async (req, res) => {
     await client.connect();
     const collection = client.db("PacingGuide").collection("Quizzes");
     const quiz = {
+      coursePriority: req.body.coursePriority,
       courseId: req.body.courseId,
       quizzId: req.body.quizzId,
+      quizzTitle: req.body.quizzTitle,
       timeInDays: req.body.timeInDays,
     };
     const result = await collection.insertOne(quiz);
@@ -335,8 +354,10 @@ router.put("/quizzes/:id", async (req, res) => {
       { _id: id },
       {
         $set: {
+          coursePriority: req.body.coursePriority,
           courseId: req.body.courseId,
           quizzId: req.body.quizzId,
+          quizzTitle: req.body.quizzTitle,
           timeInDays: req.body.timeInDays,
         },
       }
@@ -363,6 +384,23 @@ router.delete("/quizzes/:id", async (req, res) => {
   }
 });
 
+// Get all quizzes matching a courseId
+router.post("/quizzes-by-courseId", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    // const ObjectId = require("mongodb").ObjectId;
+    // const courseId = new ObjectId(req.params.courseId);
+    const result = await collection
+      .find({ courseId: req.body.courseId })
+      .toArray();
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Create a new term date record
 router.post("/student-term-dates", async (req, res) => {
   try {
@@ -373,7 +411,7 @@ router.post("/student-term-dates", async (req, res) => {
       courseID: req.body.courseID,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
-      completionDate: req.body.completionDate
+      completionDate: req.body.completionDate,
     };
     const result = await collection.insertOne(termDate);
     res.send(result);
@@ -411,6 +449,22 @@ router.get("/student-term-dates/:id", async (req, res) => {
   }
 });
 
+// Get all term date record by studentID and courseID
+router.post("/student-term-dates-by-course", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const result = await collection.findOne({
+      studentID: req.body.studentID,
+      courseID: req.body.courseID,
+    });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // Update a term date record
 router.put("/student-term-dates/:id", async (req, res) => {
   try {
@@ -426,7 +480,7 @@ router.put("/student-term-dates/:id", async (req, res) => {
           courseID: req.body.courseID,
           startDate: req.body.startDate,
           endDate: req.body.endDate,
-          completionDate: req.body.completionDate
+          completionDate: req.body.completionDate,
         },
       }
     );
