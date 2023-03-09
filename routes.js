@@ -324,6 +324,7 @@ router.post("/many-quizzes", async (req, res) => {
     res.send(result);
     client.close();
   } catch (error) {
+    console.log('Request Body: ' + req.body);
     console.log(error);
   }
 });
