@@ -62555,7 +62555,7 @@ var $async$ts=A.a_(function(a,b){if(a===1)return A.W(b,r)
 while(true)switch(s){case 0:A.au("LTIK is: "+A.e($.rG))
 p=t.N
 s=2
-return A.U(A.ls(A.da("https://3a6d-75-157-189-248.ngrok.io/info"),A.ad(["Authorization","Bearer "+A.e($.rG)],p,p)),$async$ts)
+return A.U(A.ls(A.da("https://3-96-197-44.nip.io/info"),A.ad(["Authorization","Bearer "+A.e($.rG)],p,p)),$async$ts)
 case 2:o=b
 p=o.b
 n=o.e
@@ -62629,7 +62629,7 @@ tt(a){return this.a4G(a)},
 a4G(a){var s=0,r=A.Z(t.H),q=this,p,o,n,m
 var $async$tt=A.a_(function(b,c){if(b===1)return A.W(c,r)
 while(true)switch(s){case 0:A.au("LTIK is: "+A.e($.rG))
-p=A.da("https://3a6d-75-157-189-248.ngrok.io/quizzes-by-courseId")
+p=A.da("https://3-96-197-44.nip.io/quizzes-by-courseId")
 o=t.N
 n=A.ad(["Authorization","Bearer "+A.e($.rG)],o,o)
 s=2
