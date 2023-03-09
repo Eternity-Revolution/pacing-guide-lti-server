@@ -320,7 +320,7 @@ router.post("/many-quizzes", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("Quizzes");
-    const result = awaitcollection.insertMany(req.body);
+    const result = await collection.insertMany(req.body);
     res.send(result);
     client.close();
   } catch (error) {
