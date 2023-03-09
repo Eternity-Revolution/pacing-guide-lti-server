@@ -359,12 +359,12 @@ router.get("/quizzes/:id", async (req, res) => {
 });
 
 // Update a quiz
-router.put("/quizzes/:id", async (req, res) => {
+router.put("/update-quizzes-by-id", async (req, res) => {
   try {
     client.connect();
     const collection = client.db("PacingGuide").collection("Quizzes");
     const ObjectId = require("mongodb").ObjectId;
-    const id = new ObjectId(req.params.id);
+    const id = new ObjectId(req.body._id);
     const result = await collection.updateOne(
       { _id: id },
       {
