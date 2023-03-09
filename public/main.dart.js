@@ -49359,7 +49359,7 @@ var $async$lj=A.a_(function(a,b){if(a===1)return A.W(b,r)
 while(true)switch(s){case 0:A.bD("Inside to receive Access token.")
 l=A
 s=2
-return A.T(new A.QH("https://ec2-3-96-197-44.ca-central-1.compute.amazonaws.com:3005/callback","","https://auth.brightspace.com/oauth2/token","https://auth.brightspace.com/oauth2/auth",new A.JV()).jV("b50abdc3-24f2-490d-ae9a-37fee2bd3439","Xl-eth3MZtKbHl9CpgxC90XDSklVhvPuvWp4t3YsXPs",A.a(["core:*:* quizzing:*:* discussions:*:*"],t.s)),$async$lj)
+return A.T(new A.QH("https://ec2-3-96-197-44.ca-central-1.compute.amazonaws.com:3005/callback","","https://auth.brightspace.com/core/connect/token","https://auth.brightspace.com/oauth2/auth",new A.JV()).jV("b50abdc3-24f2-490d-ae9a-37fee2bd3439","Xl-eth3MZtKbHl9CpgxC90XDSklVhvPuvWp4t3YsXPs",A.a(["core:*:* quizzing:*:* discussions:*:*"],t.s)),$async$lj)
 case 2:l.bD(b)
 s=3
 return A.T(A.a1c(A.ex("https://ec2-3-96-197-44.ca-central-1.compute.amazonaws.com:3005/access_token"),null),$async$lj)
