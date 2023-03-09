@@ -112,21 +112,21 @@ const client = new MongoClient(uri, {
 });
 
 // Get user and context information
-router.get('/info', async (req, res) => {
-  const token = res.locals.token
-  const context = res.locals.context
+router.get("/info", async (req, res) => {
+  const token = res.locals.token;
+  const context = res.locals.context;
   // console.log(token);
-  const info = { }
+  const info = {};
   if (token.userInfo) {
-    if (token.userInfo.name) info.name = token.userInfo.name
-    if (token.userInfo.email) info.email = token.userInfo.email
+    if (token.userInfo.name) info.name = token.userInfo.name;
+    if (token.userInfo.email) info.email = token.userInfo.email;
   }
 
-  if (context.roles) info.roles = context.roles
-  if (context.context) info.context = context.context
-  console.log(context)
-  return res.send(info)
-})
+  if (context.roles) info.roles = context.roles;
+  if (context.context) info.context = context.context;
+  console.log(context);
+  return res.send(info);
+});
 
 // Create a new course
 router.post("/courses", async (req, res) => {
@@ -308,6 +308,19 @@ router.post("/quizzes", async (req, res) => {
       timeInDays: req.body.timeInDays,
     };
     const result = await collection.insertOne(quiz);
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Create all quizzes
+router.post("/many-quizzes", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("Quizzes");
+    const result = awaitcollection.insertMany(req.body);
     res.send(result);
     client.close();
   } catch (error) {
