@@ -6,7 +6,7 @@ var selfSigned = require('openssl-self-signed-certificate');
 
 var app = require('./app');
 
-var httpsPort = process.env.HTTPS_PORT || 3001;
+var httpsPort = process.env.HTTPS_PORT || 443;
 
 var options = {
     key: selfSigned.key,

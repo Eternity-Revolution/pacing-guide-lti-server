@@ -32,8 +32,11 @@ lti.setup(process.env.LTI_KEY,
       secure: true, // Set secure to true if the testing platform is in a different domain and https is being used
       sameSite: 'None' // Set sameSite to 'None' if the testing platform is in a different domain and https is being used
     },
-    devMode: true 
-  })
+    devMode: true ,
+    cors : false,
+  });
+
+  // lti.whitelist('/');
 
 // Define the LTI onConnect event handler
 // This will handle successful LTI launches and redirect to the app
