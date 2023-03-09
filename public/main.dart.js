@@ -54425,7 +54425,7 @@ var $async$pX=A.a6(function(a,b){if(a===1)return A.a2(b,r)
 while(true)switch(s){case 0:A.c0("LTIK is: "+A.e($.mK))
 p=t.N
 s=2
-return A.a0(A.aqr(A.kg("https://3a6d-75-157-189-248.ngrok.io/info"),A.ay(["Authorization","Bearer "+A.e($.mK)],p,p)),$async$pX)
+return A.a0(A.aqr(A.kg("https://3-96-197-44.nip.io/info"),A.ay(["Authorization","Bearer "+A.e($.mK)],p,p)),$async$pX)
 case 2:o=b
 p=o.b
 n=o.e
@@ -54445,7 +54445,7 @@ pZ(a){return this.YW(a)},
 YW(a){var s=0,r=A.a5(t.H),q=this,p,o,n,m,l
 var $async$pZ=A.a6(function(b,c){if(b===1)return A.a2(c,r)
 while(true)switch(s){case 0:A.c0("LTIK is: "+A.e($.mK))
-p=A.kg("https://3a6d-75-157-189-248.ngrok.io/student-term-dates-by-course")
+p=A.kg("https://3-96-197-44.nip.io/student-term-dates-by-course")
 o=t.N
 n=A.ay(["Authorization","Bearer "+A.e($.mK)],o,o)
 m=J.af(a)
