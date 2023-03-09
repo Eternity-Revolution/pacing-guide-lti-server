@@ -301,10 +301,11 @@ router.post("/quizzes", async (req, res) => {
     await client.connect();
     const collection = client.db("PacingGuide").collection("Quizzes");
     const quiz = {
-      coursePriority: req.body.coursePriority,
+      priority: req.body.priority,
       courseId: req.body.courseId,
-      quizzId: req.body.quizzId,
-      quizzTitle: req.body.quizzTitle,
+      id: req.body.id,
+      title: req.body.title,
+      type: req.body.type,
       timeInDays: req.body.timeInDays,
     };
     const result = await collection.insertOne(quiz);
@@ -368,10 +369,11 @@ router.put("/quizzes/:id", async (req, res) => {
       { _id: id },
       {
         $set: {
-          coursePriority: req.body.coursePriority,
+          priority: req.body.priority,
           courseId: req.body.courseId,
-          quizzId: req.body.quizzId,
-          quizzTitle: req.body.quizzTitle,
+          id: req.body.id,
+          title: req.body.title,
+          type: req.body.type,
           timeInDays: req.body.timeInDays,
         },
       }
