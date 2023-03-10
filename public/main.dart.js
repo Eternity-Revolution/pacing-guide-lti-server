@@ -67714,7 +67714,7 @@ aw(){var s=this
 s.aS()
 s.d=J.M(s.a.c,"firstName")
 s.e=J.M(s.a.c,"lastName")
-s.f=J.M(s.a.c,"studentId")
+s.f=J.M(s.a.c,"studentID")
 s.r=J.M(s.a.c,"startDate")
 s.w=J.M(s.a.c,"endDate")},
 I(a,b){var s,r,q,p,o,n=this,m=null,l={},k=b.J(t.w).f
