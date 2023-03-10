@@ -529,13 +529,13 @@ router.put("/student-term-dates/:id", async (req, res) => {
 });
 
 // Delete a term date record
-router.delete("/student-term-dates/:id", async (req, res) => {
+router.delete("/delete-student-term-dates", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
     const ObjectId = require("mongodb").ObjectId;
-    const id = new ObjectId(req.params.id);
-    const result = await collection.deleteOne({ _id: id });
+    const _id = new ObjectId(req.body._id);
+    const result = await collection.deleteOne({ _id: _id });
     res.send(result);
     client.close();
   } catch (error) {
