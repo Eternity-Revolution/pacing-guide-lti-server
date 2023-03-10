@@ -486,9 +486,9 @@ router.post("/student-term-dates-by-course", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
-    const result = await collection.findOne({
+    const result = await collection.find({
       courseID: req.body.courseID,
-    });
+    }).toArray();
     res.send(result);
     client.close();
   } catch (error) {
