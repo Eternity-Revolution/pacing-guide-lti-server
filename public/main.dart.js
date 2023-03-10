@@ -69403,7 +69403,7 @@ n=m.w
 if(p===200){A.a_("Response ok")
 A.a_("Response for fetchMongoQuizzes is : "+A.aW(J.x(A.aV(o).c.a,"charset")).ab(0,n))
 q.Y(new A.adT(q,m))
-A.a_(q.d)}else A.a_("Error: "+A.aW(J.x(A.aV(o).c.a,"charset")).ab(0,n))
+A.a_(q.f)}else A.a_("Error: "+A.aW(J.x(A.aV(o).c.a,"charset")).ab(0,n))
 return A.V(null,r)}})
 return A.W($async$f1,r)},
 ar(){this.aS()
