@@ -501,12 +501,12 @@ router.post("/student-term-dates-by-course", async (req, res) => {
 });
 
 // Update a term date record
-router.put("/student-term-dates/:id", async (req, res) => {
+router.put("/update-student-term-dates", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
     const ObjectId = require("mongodb").ObjectId;
-    const id = new ObjectId(req.params.id);
+    const id = new ObjectId(req.body.id);
     const result = await collection.updateOne(
       { _id: id },
       {
