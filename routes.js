@@ -325,7 +325,7 @@ router.post("/many-quizzes", async (req, res) => {
     res.send(result);
     client.close();
   } catch (error) {
-    console.log('Request Body: ' + req.body);
+    console.log("Request Body: " + req.body);
     console.log(error);
   }
 });
@@ -424,6 +424,8 @@ router.post("/student-term-dates", async (req, res) => {
     const collection = client.db("PacingGuide").collection("StudentTermDates");
     const termDate = {
       studentID: req.body.studentID,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       courseID: req.body.courseID,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
@@ -486,9 +488,11 @@ router.post("/student-term-dates-by-course", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
-    const result = await collection.find({
-      courseID: req.body.courseID,
-    }).toArray();
+    const result = await collection
+      .find({
+        courseID: req.body.courseID,
+      })
+      .toArray();
     res.send(result);
     client.close();
   } catch (error) {
@@ -508,6 +512,8 @@ router.put("/student-term-dates/:id", async (req, res) => {
       {
         $set: {
           studentID: req.body.studentID,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
           courseID: req.body.courseID,
           startDate: req.body.startDate,
           endDate: req.body.endDate,
