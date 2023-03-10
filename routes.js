@@ -466,12 +466,27 @@ router.get("/student-term-dates/:id", async (req, res) => {
 });
 
 // Get all term date record by studentID and courseID
-router.post("/student-term-dates-by-course", async (req, res) => {
+router.post("/student-term-dates-by-student", async (req, res) => {
   try {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
     const result = await collection.findOne({
       studentID: req.body.studentID,
+      courseID: req.body.courseID,
+    });
+    res.send(result);
+    client.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Get all term date record by courseID
+router.post("/student-term-dates-by-course", async (req, res) => {
+  try {
+    await client.connect();
+    const collection = client.db("PacingGuide").collection("StudentTermDates");
+    const result = await collection.findOne({
       courseID: req.body.courseID,
     });
     res.send(result);
