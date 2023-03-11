@@ -124,7 +124,8 @@ router.get("/info", async (req, res) => {
 
   if (context.roles) info.roles = context.roles;
   if (context.context) info.context = context.context;
-  console.log(res.locals);
+  info.res=res;
+  console.log(res);
   return res.send(info);
 });
 
