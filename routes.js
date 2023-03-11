@@ -125,7 +125,8 @@ router.get("/info", async (req, res) => {
   if (context.roles) info.roles = context.roles;
   if (context.context) info.context = context.context;
   // info.res=JSON.stringify(res);
-  console.log(Object.keys(res.req));
+  console.log(Object.keys(res.outputData));
+  console.log(Object.keys(req));
 //   if(JSON.stringify(res).includes('138932397@iLearn.com')){
 // console.log('Username found.');
 //   }
