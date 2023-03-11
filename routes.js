@@ -124,10 +124,29 @@ router.get("/info", async (req, res) => {
 
   if (context.roles) info.roles = context.roles;
   if (context.context) info.context = context.context;
+
+   // Traverse through the res object to find 138932397@iLearn.com
+   const findValue = (obj, value) => {
+    for (let key in obj) {
+      if (obj[key] === value) return true;
+      if (typeof obj[key] === "object") {
+        if (findValue(obj[key], value)) return true;
+      }
+    }
+    return false;
+  };
+  
+  const hasEmail = findValue(res, "138932397@iLearn.com");
+
+  if (hasEmail) {
+    console.log("Found 138932397@iLearn.com in res object");
+  } else {
+    console.log("Did not find 138932397@iLearn.com in res object");
+  }
   // info.res=JSON.stringify(res);
   // console.log(Object.keys(res.outputData));
-  console.log(Object.keys(req));
-  console.log(req.res);
+  // console.log(Object.keys(req));
+  // console.log(req.res);
   // console.log(res.outputData);
 //   if(JSON.stringify(res).includes('138932397@iLearn.com')){
 // console.log('Username found.');
