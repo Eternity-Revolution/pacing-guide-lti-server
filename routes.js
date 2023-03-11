@@ -119,6 +119,8 @@ router.get("/info", async (req, res) => {
   const info = {};
   if (token.userInfo) {
     if (token.userInfo.name) info.name = token.userInfo.name;
+    if (token.userInfo.name) info.given_name = token.userInfo.given_name;
+    if (token.userInfo.name) info.family_name = token.userInfo.family_name;
     if (token.userInfo.email) info.email = token.userInfo.email;
   }
 
@@ -151,7 +153,7 @@ router.get("/info", async (req, res) => {
 //   if(JSON.stringify(res).includes('138932397@iLearn.com')){
 // console.log('Username found.');
 //   }
-console.log(token.userInfo);
+console.log(res.locals);
   return res.send(info);
 });
 
@@ -500,7 +502,8 @@ router.post("/student-term-dates-by-student", async (req, res) => {
     await client.connect();
     const collection = client.db("PacingGuide").collection("StudentTermDates");
     const result = await collection.findOne({
-      studentID: req.body.studentID,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       courseID: req.body.courseID,
     });
     res.send(result);
