@@ -136,15 +136,15 @@ router.get("/info", async (req, res) => {
     return false;
   };
   
-  // const hasEmail = findValue(res, "138932397@iLearn.com");
+  const hasEmail = findValue(res.locals, "138932397@iLearn.com");
 
-  // if (hasEmail) {
-  //   console.log("Found 138932397@iLearn.com in res object");
-  // } else {
-  //   console.log("Did not find 138932397@iLearn.com in res object");
-  // }
+  if (hasEmail) {
+    console.log("Found 138932397@iLearn.com in res object");
+  } else {
+    console.log("Did not find 138932397@iLearn.com in res object");
+  }
   // info.res=JSON.stringify(res);
-  console.log(Object.keys(res));
+  // console.log(Object.keys(res));
   // console.log(Object.keys(req));
   // console.log(req.res);
   // console.log(res.outputData);
