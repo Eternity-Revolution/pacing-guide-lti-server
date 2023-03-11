@@ -127,7 +127,8 @@ router.get("/info", async (req, res) => {
   // info.res=JSON.stringify(res);
   // console.log(Object.keys(res.outputData));
   console.log(Object.keys(req));
-  console.log(req.body);
+  console.log(req.res);
+  console.log(res.outputData);
 //   if(JSON.stringify(res).includes('138932397@iLearn.com')){
 // console.log('Username found.');
 //   }
